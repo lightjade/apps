@@ -1,10 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import time
-import pyautogui 
-import pymsgbox
-from openpyxl import Workbook
-from openpyxl.styles import Alignment
 import re
 
 ########################################################
@@ -25,17 +20,16 @@ def getLottoInfo(url):
     # 동행복권 1057회 당첨번호 8,13,19,27,40,45+12. 1등 총 17명, 1인당 당첨금액 1,616,069,714원.
     meta = soup.select_one("#desc")
     infos = meta.attrs['content'].split(' ')
-    print(infos)
+    #print(infos)
     
     gameNo = infos[1][:-1]
-    
     numbers = infos[3].split(',')
     lastAndBonus = numbers[5].split('+')
     numbers[5] = lastAndBonus[0] 
     numbers.append(lastAndBonus[1][:-1])
-    
     firstWinnerCount = re.sub(r'[^0-9]', '', infos[6])
     prizeMoney = re.sub(r'[^0-9]', '', infos[9])
+    
     return gameNo, numbers, firstWinnerCount, prizeMoney
 
 
@@ -44,11 +38,9 @@ def getLottoInfo(url):
 url = "https://www.dhlottery.co.kr/gameResult.do?method=byWin"
 gameNo, numbers, firstWinnerCount, prizeMoney = getLottoInfo(url)
 
-print(gameNo, numbers, firstWinnerCount, prizeMoney)
-
 f = open(gameNo, 'w')
 content = "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(
-        gameNo, numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5], numbers[6], firstWinnerCount, prizeMoney
-    )
+    gameNo, numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5], numbers[6], firstWinnerCount, prizeMoney
+)
 f.write(content)
 f.close()
