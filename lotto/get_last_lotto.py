@@ -38,7 +38,8 @@ def getLottoInfo(url):
 url = "https://www.dhlottery.co.kr/gameResult.do?method=byWin"
 gameNo, numbers, firstWinnerCount, prizeMoney = getLottoInfo(url)
 
-f = open("lotto/result/"+gameNo, 'w')
+filename = "lotto/result/{}".format(gameNo)
+f = open(filename, 'w')
 content = "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(
     gameNo, numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5], numbers[6], firstWinnerCount, prizeMoney
 )
