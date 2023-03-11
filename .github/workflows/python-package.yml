@@ -31,3 +31,10 @@ jobs:
     - name: Run get_last_lotto.py
       run: |
         python lotto/get_last_lotto.py
+    - name: Push file
+      run: |
+        git config --global user.name '이화영'
+        git config --global user.email 'lightjade@gmail.com'
+        git add -A
+        git commit -am "add lotto result file"
+        git push
